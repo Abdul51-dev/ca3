@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:       #fafaf9;
+  --surface:  #ffffff;
+  --surface2: #f4f4f2;
+  --border:   #e8e8e4;
+  --border2:  #d4d4ce;
+  --text:     #1a1a18;
+  --muted:    #888884;
+  --hint:     #b8b8b2;
+
+  --green:    #16a34a;
+  --blue:     #2563eb;
+  --amber:    #d97706;
+  --red:      #dc2626;
+  --purple:   #7c3aed;
+
+  --sans: 'DM Sans', sans-serif;
+  --mono: 'DM Mono', monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--sans); cursor: pointer; }
