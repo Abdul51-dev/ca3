@@ -1,3 +1,8 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/modules/page": "app/modules/page.js",
+  "/map/page": "app/map/page.js",
+  "/timetable/page": "app/timetable/page.js",
+  "/page": "app/page.js",
   "/canteen/page": "app/canteen/page.js"
 }
