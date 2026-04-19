@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { href: '/timetable', label: 'Timetable' },
   { href: '/map',       label: 'Campus Map' },
   { href: '/modules',   label: 'Modules' },
+  { href: '/canteen',   label: 'Canteen' },
 ];
 
 export default function NavBar() {
@@ -17,6 +18,7 @@ export default function NavBar() {
       borderBottom: '1px solid var(--border)',
       padding: '0 24px',
       display: 'flex',
+      overflowX: 'auto',
     }}>
       {NAV_LINKS.map(({ href, label }) => {
         const active = pathname.startsWith(href);
@@ -30,6 +32,7 @@ export default function NavBar() {
             letterSpacing: '-0.01em',
             display: 'inline-block',
             textDecoration: 'none',
+            whiteSpace: 'nowrap',
           }}>{label}</Link>
         );
       })}
