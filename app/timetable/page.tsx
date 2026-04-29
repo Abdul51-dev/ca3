@@ -1,96 +1,136 @@
 'use client';
 
-import { useState } from 'react';
-import { DAYS, Day, timetable } from '@/data/timetable';
-import ClassCard from '@/components/ClassCard';
+import { useState, useEffect } from 'react';
+
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+
+interface Slot {
+  id: number;
+  day: string;
+  time: string;
+  duration: string;
+  name: string;
+  room: string;
+  type: string;
+  color: string;
+}
 
 export default function TimetablePage() {
-  const [activeDay, setActiveDay] = useState<Day>('Mon');
-  const slots = timetable[activeDay];
+  const [activeDay, setActiveDay] = useState('Mon');
+  const [slots, setSlots] = useState<Slot[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState<number | null>(null);
+
+  useEffect(() => {
+    async function fetchSlots() {
+      setLoading(true);
+      const { createClient } = await import('@supabase/supabase-js');
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+      );
+      const { data } = await supabase
+        .from('timetable_slots')
+        .select('*')
+        .eq('day', activeDay)
+        .order('time');
+      setSlots(data || []);
+      setExpanded(null);
+      setLoading(false);
+    }
+    fetchSlots();
+  }, [activeDay]);
+
+  const typeColors: Record<string, string> = {
+    Lecture: '#2563eb', Lab: '#16a34a', Tutorial: '#d97706',
+  };
 
   return (
-    <main className="content">
-      <p className="section-label">weekly schedule</p>
+    <main style={{ padding: '40px', maxWidth: '900px', margin: '0 auto' }}>
+      <div style={{ marginBottom: '28px' }}>
+        <h1 style={{ fontSize: '28px', fontWeight: 700, letterSpacing: '-0.03em', marginBottom: '4px' }}>Weekly Schedule</h1>
+        <p style={{ color: 'var(--muted)', fontSize: '15px' }}>Your classes for the week — click a card to expand</p>
+      </div>
 
-      {/* Day selector */}
-      <div className="day-strip">
+      <div style={{ display: 'flex', gap: '8px', marginBottom: '32px' }}>
         {DAYS.map(day => (
-          <button
-            key={day}
-            className={`day-btn ${day === activeDay ? 'active' : ''}`}
-            onClick={() => setActiveDay(day)}
-          >
+          <button key={day} onClick={() => setActiveDay(day)} style={{
+            flex: 1, fontFamily: 'var(--mono)', fontSize: '13px', fontWeight: 500,
+            background: day === activeDay ? 'var(--text)' : 'var(--surface)',
+            border: `1px solid ${day === activeDay ? 'var(--text)' : 'var(--border)'}`,
+            color: day === activeDay ? 'var(--surface)' : 'var(--muted)',
+            padding: '12px 8px', borderRadius: '12px', cursor: 'pointer',
+            transition: 'all 0.15s ease',
+            transform: day === activeDay ? 'translateY(-1px)' : 'none',
+            boxShadow: day === activeDay ? 'var(--shadow-md)' : 'none',
+          }}>
             {day.toUpperCase()}
           </button>
         ))}
       </div>
 
-      {/* Slots */}
-      <div className="timeline">
-        {slots.map((slot, i) => (
-          <div key={i}>
-            <ClassCard slot={slot} />
-            {i < slots.length - 1 && (
-              <div className="divider">
-                <div className="divider-line" />
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {[1,2,3].map(i => (
+            <div key={i} style={{ height: '80px', background: 'var(--surface2)', borderRadius: '16px', animation: 'pulse 1.5s ease infinite' }} />
+          ))}
+        </div>
+      ) : (
+        <div className="fade-up" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          {slots.map((slot) => {
+            const isExpanded = expanded === slot.id;
+            const tColor = typeColors[slot.type] || '#888';
+            return (
+              <div
+                key={slot.id}
+                onClick={() => setExpanded(isExpanded ? null : slot.id)}
+                style={{
+                  background: 'var(--surface)',
+                  border: `1px solid ${isExpanded ? slot.color : 'var(--border)'}`,
+                  borderRadius: '16px',
+                  padding: '20px 24px',
+                  display: 'flex',
+                  alignItems: isExpanded ? 'flex-start' : 'center',
+                  gap: '20px',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  boxShadow: isExpanded ? 'var(--shadow-md)' : 'var(--shadow-sm)',
+                  transform: isExpanded ? 'translateY(-2px)' : 'none',
+                }}
+              >
+                <div style={{ width: '4px', borderRadius: '3px', alignSelf: 'stretch', flexShrink: 0, background: slot.color, minHeight: '28px' }} />
 
-      <style jsx>{`
-        .content {
-          padding: 24px;
-          max-width: 680px;
-        }
-        .section-label {
-          font-family: var(--mono);
-          font-size: 10px;
-          font-weight: 500;
-          color: var(--hint);
-          text-transform: uppercase;
-          letter-spacing: 0.12em;
-          margin-bottom: 16px;
-        }
-        .day-strip {
-          display: flex;
-          gap: 6px;
-          margin-bottom: 20px;
-        }
-        .day-btn {
-          flex: 1;
-          font-family: var(--mono);
-          font-size: 11px;
-          background: var(--surface);
-          border: 1px solid var(--border);
-          color: var(--muted);
-          padding: 8px 4px;
-          border-radius: var(--radius-md);
-          text-align: center;
-          transition: all 0.12s;
-        }
-        .day-btn:hover {
-          border-color: var(--border2);
-          color: var(--text);
-        }
-        .day-btn.active {
-          background: var(--text);
-          border-color: var(--text);
-          color: var(--surface);
-        }
-        .divider {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          margin: 4px 0 4px 56px;
-        }
-        .divider-line {
-          flex: 1;
-          height: 1px;
-          border-top: 1px dashed var(--border);
-        }
-      `}</style>
+                <div style={{ minWidth: '52px', flexShrink: 0 }}>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '13px', fontWeight: 500, color: 'var(--muted)' }}>{slot.time}</div>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--hint)' }}>{slot.duration}</div>
+                </div>
+
+                <div style={{ flex: 1 }}>
+                  <p style={{ fontSize: '16px', fontWeight: 600, letterSpacing: '-0.02em', marginBottom: isExpanded ? '10px' : '3px' }}>{slot.name}</p>
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: '12px', color: 'var(--muted)', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                    <span>📍 {slot.room}</span>
+                    {isExpanded && <span>⏱ {slot.duration}</span>}
+                  </div>
+                  {isExpanded && (
+                    <div className="fade-in" style={{ marginTop: '14px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', padding: '4px 12px', borderRadius: '20px', background: `${tColor}15`, color: tColor, border: `1px solid ${tColor}30` }}>
+                        {slot.type}
+                      </span>
+                      <span style={{ fontFamily: 'var(--mono)', fontSize: '11px', padding: '4px 12px', borderRadius: '20px', background: 'var(--surface2)', color: 'var(--muted)', border: '1px solid var(--border)' }}>
+                        {slot.day}
+                      </span>
+                    </div>
+                  )}
+                </div>
+
+                <div style={{ fontSize: '18px', color: 'var(--hint)', transition: 'transform 0.2s', transform: isExpanded ? 'rotate(180deg)' : 'none', flexShrink: 0 }}>
+                  ⌄
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </main>
   );
 }

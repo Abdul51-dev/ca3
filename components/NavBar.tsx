@@ -16,19 +16,19 @@ export default function NavBar() {
     <nav style={{
       background: 'var(--surface)',
       borderBottom: '1px solid var(--border)',
-      padding: '0 24px',
+      padding: '0 40px',
       display: 'flex',
-      overflowX: 'auto',
+      gap: '4px',
     }}>
       {NAV_LINKS.map(({ href, label }) => {
         const active = pathname.startsWith(href);
         return (
           <Link key={href} href={href} style={{
-            fontSize: '13px', fontWeight: 500,
+            fontSize: '14px', fontWeight: 500,
             color: active ? 'var(--text)' : 'var(--muted)',
-            padding: '12px 18px',
+            padding: '14px 20px',
             borderBottom: active ? '2px solid var(--text)' : '2px solid transparent',
-            transition: 'color 0.12s, border-color 0.12s',
+            transition: 'color 0.15s, border-color 0.15s',
             letterSpacing: '-0.01em',
             display: 'inline-block',
             textDecoration: 'none',
