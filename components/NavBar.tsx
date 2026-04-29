@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { href: '/map',       label: 'Campus Map' },
   { href: '/modules',   label: 'Modules' },
   { href: '/canteen',   label: 'Canteen' },
+  { href: '/grades',    label: 'Grade Calculator' },
 ];
 
 export default function NavBar() {
@@ -19,6 +20,7 @@ export default function NavBar() {
       padding: '0 40px',
       display: 'flex',
       gap: '4px',
+      overflowX: 'auto',
     }}>
       {NAV_LINKS.map(({ href, label }) => {
         const active = pathname.startsWith(href);
