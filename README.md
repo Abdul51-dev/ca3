@@ -28,18 +28,24 @@ A clean, minimal student dashboard web app for TU Dublin built with Next.js 14 a
 | Campus Map | `/map` | Interactive Grangegorman campus map with 7 clickable buildings |
 | Module Tracker | `/modules` | 6 CS modules with grades, progress bars, and assignment urgency |
 | Canteen Menu | `/canteen` | Daily fictional menu with category filters, calories, and allergens |
+| Grade Calculator | `/grades` | Add modules and assessments; grades sync automatically to the Module Tracker |
+| Events | `/events` | Browse and add campus events (societies, sports, academic, career, social) with a calendar view and category filters |
+| Lost & Found | `/lost-found` | Report or search for lost/found items on campus; tracks open and resolved cases |
+| Help Desk | `/helpdesk` | Submit and track support tickets; includes student and admin views with status tracking (Open, In Progress, Resolved) |
+| Food Recommendation | `/recommend` | Filter canteen meals by day, max calories, max price, and allergen exclusions to get personalised meal suggestions |
 
 ---
 
 ## How to Run Locally
 
 ### Prerequisites
+
 - Node.js 18+ (download from https://nodejs.org)
 - npm (comes with Node.js)
 
 ### Steps
 
-```bash
+```
 # 1. Clone the repository
 git clone https://github.com/Abdul51-dev/ca3.git
 
@@ -57,7 +63,7 @@ Then open **http://localhost:3000** in your browser.
 
 ### Build for Production
 
-```bash
+```
 npm run build
 npm start
 ```
@@ -89,7 +95,12 @@ campus-companion/
 │   ├── timetable/page.tsx      ← timetable feature
 │   ├── map/page.tsx            ← campus map feature
 │   ├── modules/page.tsx        ← module tracker feature
-│   └── canteen/page.tsx        ← canteen menu feature
+│   ├── canteen/page.tsx        ← canteen menu feature
+│   ├── grades/page.tsx         ← grade calculator feature
+│   ├── events/page.tsx         ← events calendar feature
+│   ├── lost-found/page.tsx     ← lost & found board feature
+│   ├── helpdesk/page.tsx       ← help desk ticketing feature
+│   └── recommend/page.tsx      ← food recommendation feature
 ├── components/
 │   ├── Topbar.tsx              ← top header bar
 │   ├── NavBar.tsx              ← navigation (client component)
@@ -172,7 +183,22 @@ Client Component errors, missing 'use client' directives) and fixes.
 **Prompt 5 — Canteen menu feature**
 > TASK: Build the /canteen page with a day selector (Mon–Fri) and category filter buttons (Hot Meal, Grill, Vegetarian, Vegan, Soup, Dessert). Each menu item shows name, description, price, calories, and allergens. Data comes from data/canteen.ts.
 
-**Prompt 6 — Bug fixes (iterative)**
+**Prompt 6 — Grade calculator feature**
+> TASK: Build the /grades page with an interactive grade calculator. Students can add modules and individual assessments with weightings; overall grades should sync to the Module Tracker automatically.
+
+**Prompt 7 — Events feature**
+> TASK: Build the /events page with a calendar view and category filters (General, Society, Sports, Academic, Social, Career). Students can browse upcoming events and add new ones using a form.
+
+**Prompt 8 — Lost & Found feature**
+> TASK: Build the /lost-found page where students can report lost or found items and search existing reports. Include status tracking (Open, Resolved) and filter options for Lost vs Found items.
+
+**Prompt 9 — Help Desk feature**
+> TASK: Build the /helpdesk page with a ticket submission system. Include student and admin views. Tickets should have statuses (Open, In Progress, Resolved, Closed) and be filterable by status.
+
+**Prompt 10 — Food Recommendation feature**
+> TASK: Build the /recommend page. Students select a day, set a max calorie limit, set a max price, and exclude allergens. The page filters canteen data and returns personalised meal suggestions.
+
+**Prompt 11 — Bug fixes (iterative)**
 > CONTEXT: Getting error "'client-only' cannot be imported from a Server Component". TASK: Identify all components using styled-jsx and convert them to use inline styles so they are compatible with Next.js Server Components. List every file that needs changing.
 
 ---
