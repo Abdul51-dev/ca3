@@ -4,11 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const NAV_LINKS = [
-  { href: '/timetable', label: 'Timetable' },
-  { href: '/map',       label: 'Campus Map' },
-  { href: '/modules',   label: 'Modules' },
-  { href: '/canteen',   label: 'Canteen' },
-  { href: '/grades',    label: 'Grade Calculator' },
+  { href: '/timetable',  label: 'Timetable' },
+  { href: '/map',        label: 'Campus Map' },
+  { href: '/modules',    label: 'Modules' },
+  { href: '/canteen',    label: 'Canteen' },
+  { href: '/grades',     label: 'Grades' },
+  { href: '/events',     label: 'Events' },
+  { href: '/lost-found', label: 'Lost & Found' },
+  { href: '/helpdesk',   label: 'Help Desk' },
 ];
 
 export default function NavBar() {
@@ -19,7 +22,6 @@ export default function NavBar() {
       borderBottom: '1px solid var(--border)',
       padding: '0 40px',
       display: 'flex',
-      gap: '4px',
       overflowX: 'auto',
     }}>
       {NAV_LINKS.map(({ href, label }) => {
@@ -28,7 +30,7 @@ export default function NavBar() {
           <Link key={href} href={href} style={{
             fontSize: '14px', fontWeight: 500,
             color: active ? 'var(--text)' : 'var(--muted)',
-            padding: '14px 20px',
+            padding: '14px 18px',
             borderBottom: active ? '2px solid var(--text)' : '2px solid transparent',
             transition: 'color 0.15s, border-color 0.15s',
             letterSpacing: '-0.01em',
