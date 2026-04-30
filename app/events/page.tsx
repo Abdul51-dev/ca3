@@ -72,7 +72,7 @@ export default function EventsPage() {
   const month = viewMonth.getMonth();
   const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const calendarDays = Array.from({ length: firstDay }, () => null).concat(
+  const calendarDays = Array.from<number | null>({ length: firstDay }, () => null).concat(
     Array.from({ length: daysInMonth }, (_, i) => i + 1)
   );
 
