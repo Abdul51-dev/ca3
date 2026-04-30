@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { href: '/events',     label: 'Events' },
   { href: '/lost-found', label: 'Lost & Found' },
   { href: '/helpdesk',   label: 'Help Desk' },
+  { href: '/recommend',  label: 'Food Recommendation' },
 ];
 
 export default function NavBar() {
