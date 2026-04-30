@@ -225,5 +225,3 @@ Full prompt transcript is included as a separate file in this submission.
 - `aria-label` attributes added to MapPin buttons
 
 ---
-
-*Submitted for CA3 — TU Dublin Computing, 2024/25*
