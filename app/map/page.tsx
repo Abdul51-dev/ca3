@@ -17,6 +17,8 @@ export default function MapPage() {
       <div className="map-wrap">
         <div className="map-canvas">
           <svg
+            role="img"
+            aria-label="Campus map of College showing 7 buildings: Block A, Block B, Library, Student Hub, Computing Faculty, Sports Centre, and Canteen"
             width="100%"
             height="260"
             viewBox="0 0 480 260"
