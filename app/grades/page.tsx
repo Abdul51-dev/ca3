@@ -164,6 +164,12 @@ export default function GradesPage() {
     color: 'var(--text)', width: '100%',
   };
 
+  const noSpinInputStyle = {
+    ...inputStyle,
+    appearance: 'textfield',
+    MozAppearance: 'textfield',
+  };
+
   const btnStyle = (color = 'var(--text)') => ({
     fontFamily: 'var(--sans)', fontSize: '13px', fontWeight: 500 as const,
     background: color, color: '#fff', border: 'none',
@@ -208,7 +214,7 @@ export default function GradesPage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 120px 80px', gap: '10px', marginBottom: '10px' }}>
             <input placeholder="Module name" value={newModName} onChange={e => setNewModName(e.target.value)} style={inputStyle} />
             <input placeholder="Your code" value={newModCode} onChange={e => setNewModCode(e.target.value)} style={inputStyle} />
-            <input placeholder="Credits" type="number" value={newModCredits} onChange={e => setNewModCredits(e.target.value)} style={inputStyle} />
+            <input placeholder="Credit per mod" value={newModCredits} onChange={e => setNewModCredits(e.target.value)} style={noSpinInputStyle} />
           </div>
           <div style={{ marginBottom: '12px' }}>
             <p style={{ fontFamily: 'var(--mono)', fontSize: '11px', color: 'var(--muted)', marginBottom: '8px' }}>Link to existing module (optional — syncs grade to Module Tracker):</p>
