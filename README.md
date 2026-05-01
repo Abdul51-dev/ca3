@@ -3,6 +3,7 @@
 A clean, minimal student dashboard web app for TU Dublin built with Next.js 14 and TypeScript.
 
 **New URL:** https://69f4ba059fd55800f2f3795c--companionappnoe.netlify.app/timetable
+
 **Live URL:** https://campus-companion-ca3.netlify.app  
 **GitHub:** https://github.com/Abdul51-dev/ca3
 
