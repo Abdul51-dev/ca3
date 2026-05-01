@@ -161,7 +161,7 @@ export default function HelpdeskPage() {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px', marginBottom: '10px' }}>
             <input placeholder="Your name *" value={form.student_name} onChange={e => setForm(f => ({ ...f, student_name: e.target.value }))} style={inputStyle} />
             <input placeholder="Your email" value={form.student_email} onChange={e => setForm(f => ({ ...f, student_email: e.target.value }))} style={inputStyle} />
-            <input placeholder="Ticket Reason *" value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} style={inputStyle} />
+            <input placeholder="Ticket title *" value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} style={inputStyle} />
             <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} style={inputStyle}>
               {CATEGORIES.map(c => <option key={c}>{c}</option>)}
             </select>
